@@ -1,7 +1,7 @@
 from ..common import ConanTools, DelegateManager, PackageManagement, ProfileManagement, Utility
 import argparse, copy, glob, os, platform, re, sys, tempfile
 from os.path import abspath, dirname, exists, join
-from pkg_resources import parse_version
+from packaging import version
 
 def _getClangVersion(clangPath):
 	'''
@@ -9,7 +9,7 @@ def _getClangVersion(clangPath):
 	'''
 	(stdout, stderr) = Utility.run([clangPath, '--version'])
 	matches = re.search('clang version (.+) \\(', stdout)
-	return parse_version(matches.group(1).replace('-', '.'))
+	return version.parse(matches.group(1).replace('-', '.'))
 
 def _locateClang(manager, architecture='x86_64'):
 	'''

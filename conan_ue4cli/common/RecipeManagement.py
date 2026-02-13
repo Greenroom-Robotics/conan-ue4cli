@@ -1,5 +1,5 @@
 from os.path import basename, dirname, join
-from pkg_resources import parse_version
+from packaging import version
 from .Utility import Utility
 import glob, re
 
@@ -24,7 +24,7 @@ class RecipeManagement(object):
 		
 		# Extract the list of version numbers and return the highest available version
 		references = [RecipeManagement.parseReference(recipe['recipe']['id']) for recipe in recipes[0]]
-		versions = sorted([parse_version(reference['version']) for reference in references])
+		versions = sorted([version.parse(reference['version']) for reference in references])
 		return str(versions[-1])
 	
 	@staticmethod
